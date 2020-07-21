@@ -9,3 +9,6 @@ Contact : 9821979970
 
 Avani R Shesh , R.V College of Engineering 
 Contact:9916084554
+
+Rashi Srivastava, VIT
+Contact : 7415605714
