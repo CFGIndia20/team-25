@@ -1,5 +1,7 @@
 # team-25
 
+https://chat.whatsapp.com/FuYEwRS2FifC2XniJRBTrb join this group
+
 Hey everyone, please add your details in the readme so we can connect 
 
 Aumkar Gadekar, Sardar Patel Institute of Technology
