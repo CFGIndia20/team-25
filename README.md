@@ -14,4 +14,7 @@ Rashi Srivastava, VIT
 Contact : 7415605714
 
 Nippun Lakhani , Thapar Institute of Engineering and Technology
-Contact : 9643783769 
+Contact : 9643783769
+
+Akshaz Singh, VIT
+Contact : 8989176299
