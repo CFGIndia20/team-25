@@ -18,3 +18,6 @@ Contact : 9643783769
 
 Akshaz Singh, VIT
 Contact : 8989176299
+
+Nitisha Singhwal, NIT
+Contact : 9650637336
