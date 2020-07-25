@@ -32,7 +32,7 @@ def get_data():
         print(lat)
         categories = get_categories(text)
         location = get_location()
-        return json.dump({'categories': categories, 'location': location})
+        return {'categories': text, 'latitude': lat , 'longitude':lon}
 
 
 

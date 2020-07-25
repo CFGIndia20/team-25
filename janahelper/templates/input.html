@@ -15,35 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script>
-        var lat = document.getElementById("cdlat");
-            var lon = document.getElementById('cdlon');
-
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 60000
-            };
-            function error(err) {
-                console.warn(`ERROR(${err.code}): ${err.message}`);
-            }
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition, error, options);
-                } else {
-                    lat.value = "Geolocation is not supported by this browser.";
-                    lon.value = "Geolocation is not supported by this browser.";
-                }
-            }
-
-            function showPosition(position) {
-                lat.value = position.coords.latitude;
-                lon.value = position.coords.longitude;
-            }
-            getLocation();
-
-
-    </script>
+   
 
 
     <style>
@@ -67,9 +39,6 @@
                 </div>
                 <input type="hidden" name="cdlat" id="cdlat" value="">
                 <input type="hidden" name="cdlon" id="cdlon" value="">
-
-
-
                 <div class="form-group">
                     <input type="Submit" class="btn btn-success" id="sub" value="Submit">
                 </div>
@@ -79,5 +48,34 @@
     </div>
 
 </body>
+<script>
+    var lat = document.getElementById("cdlat");
+    var lon = document.getElementById('cdlon');
+
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 60000
+    };
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, error, options);
+        } else {
+            lat.value = "Geolocation is not supported by this browser.";
+            lon.value = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        lat.value = position.coords.latitude;
+        lon.value = position.coords.longitude;
+    }
+    getLocation();
+
+
+</script>
 
 </html>
