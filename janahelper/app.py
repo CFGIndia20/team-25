@@ -1,15 +1,9 @@
-
-from flask_sqlalchemy import SQLAlchemy
 from googletrans import Translator
 from classification.categorize import pred
 from flask import Flask, render_template,request, redirect, url_for
-from Model.models import Complaint
 translator = Translator()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db = SQLAlchemy(app)
-
 
 @app.route('/complaints', methods=['POST','GET'])
 def get_data():
@@ -21,13 +15,10 @@ def get_data():
             text = translator.translate(str(text), dest='en').text
             latitude = request.form['cdlat']
             longitude = request.form['cdlon']
-            complaint1=Complaint(category=categories, loc_late=latitude, loc_long=longitude)
-            db.session.add(complaint1)
-            db.session.commit()
-            return {'categories': categories, 'location': {"latittude": latitude, "longitude": longitude}}
+            #categories = pred(text)
+            return {'categories': text, 'location': {"latittude": latitude, "longitude": longitude}}
         except:
             return redirect(url_for('get_data'))
-
 
 @app.errorhandler(404)  
 def not_found(e):
