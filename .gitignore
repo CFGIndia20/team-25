@@ -6,4 +6,4 @@ Team*.zip
 *.ovpn
 .DS_Store
 .env
-*.pyc
+__pycache__
