@@ -1,5 +1,9 @@
-from flask import Flask, render_template,request,redirect, url_for
+
 from flask_sqlalchemy import SQLAlchemy
+from googletrans import Translator
+from classification.categorize import pred
+from flask import Flask, render_template,request, redirect, url_for
+translator = Translator()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
@@ -23,6 +27,7 @@ def get_data():
     elif request.method == 'POST':
         try:
             text = request.form['complaint']
+            text = translator.translate(str(text), dest='en').text
             latitude = request.form['cdlat']
             longitude = request.form['cdlon']
             complaint1=Complaint(category=categories, loc_late=latitude, loc_long=longitude)
@@ -38,4 +43,4 @@ def not_found(e):
     return redirect(url_for('get_data'))
 
 if __name__ == '__main__':
-    app.run(debug=True, )
+    app.run(debug=True)
