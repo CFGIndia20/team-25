@@ -8,14 +8,14 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 sw = stopwords.words('english')
 
 import pickle
-with open('tokenizer.pickle', 'rb') as handle:                                  ## Load tokenizer
+with open('D:\\JPMC-Hack\\team-25\\janahelper\\classification\\tokenizer.pickle', 'rb') as handle:                                  ## Load tokenizer
     tokenizer = pickle.load(handle)
 
 import tensorflow as tf 
 
 from nltk.stem import WordNetLemmatizer  
 lemmatizer = WordNetLemmatizer() 
-m = tf.keras.models.load_model('m.h5')                                          ## Load model file
+m = tf.keras.models.load_model('D:\\JPMC-Hack\\team-25\\janahelper\\classification\\m.h5')                                          ## Load model file
 
 y=['Mobility - Roads, Footpaths and Infrastructure',         
          'Garbage and Unsanitary Practices',
