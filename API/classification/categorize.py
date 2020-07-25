@@ -1,21 +1,22 @@
-import pandas as pd
+import os
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
+import pandas as pd
 from nltk.corpus import stopwords
+from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 sw = stopwords.words('english')
 
 import pickle
-with open('D:\\JPMC-Hack\\team-25\\janahelper\\classification\\tokenizer.pickle', 'rb') as handle:                                  ## Load tokenizer
+with open('{}/classification/tokenizer.pickle'.format(os.getcwd()), 'rb') as handle:                                  ## Load tokenizer
     tokenizer = pickle.load(handle)
 
 import tensorflow as tf 
 
 from nltk.stem import WordNetLemmatizer  
 lemmatizer = WordNetLemmatizer() 
-m = tf.keras.models.load_model('D:\\JPMC-Hack\\team-25\\janahelper\\classification\\m.h5')                                          ## Load model file
+m = tf.keras.models.load_model('{}/classification/m.h5'.format(os.getcwd()))                                          ## Load model file
 
 y=['Mobility - Roads, Footpaths and Infrastructure',         
          'Garbage and Unsanitary Practices',
@@ -47,7 +48,6 @@ output = labelEncoder.fit_transform(y)                                          
 def pred(sentence):
     sentence=[sentence]
     for x in range(len(sentence)):                                              ## remove stopwards and lemmatize
-        print(x)
         s=sentence[x].split()
         s1=[]
         for i in s:
@@ -60,6 +60,5 @@ def pred(sentence):
     test = pad_sequences(test,maxlen=14)
 
     x=labelEncoder.inverse_transform([np.argmax(m.predict(test))])              ## Predict
-    print(x[0])
 
     return x[0]                                                                  ## Return prediction
