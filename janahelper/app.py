@@ -10,15 +10,12 @@ def get_data():
     if request.method == 'GET':
         return render_template('input.html')
     elif request.method == 'POST':
-        try:
             text = request.form['complaint']
             text = translator.translate(str(text), dest='en').text
             latitude = request.form['cdlat']
             longitude = request.form['cdlon']
-            #categories = pred(text)
-            return {'categories': text, 'location': {"latittude": latitude, "longitude": longitude}}
-        except:
-            return redirect(url_for('get_data'))
+            categories=pred(text)
+            return {'categories': categories, 'location': {"latitude": latitude, "longitude": longitude}}
 
 @app.errorhandler(404)  
 def not_found(e):
