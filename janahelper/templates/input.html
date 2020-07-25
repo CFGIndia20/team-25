@@ -1,6 +1,7 @@
 {% include 'base.html' %}
 
 <form method="POST" action="/complaints">
-    <input type="textarea" id="complaint" >
+    {{ csrf_token }}
+    <input type="textarea" name="complaint" id="complaint">
     <button type="submit">Submit</button>
 </form>
