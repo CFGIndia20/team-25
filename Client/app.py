@@ -17,8 +17,9 @@ def main():
         json_object = {"complaint": complaint, "location": {"latitude": latitude, "longitude": longitude}}
         try:
             print(json_object)
-            res = requests.post('http://localhost:5000/complaint', json=json_object)
+            res = requests.post('http://localhost:5000/complaints', json=json_object)
             if res.status_code == 200:
+                return res
                 flash(res.json,"success")
             else:
                 raise Exception()
