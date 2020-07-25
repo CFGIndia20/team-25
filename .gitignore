@@ -4,3 +4,4 @@ Team*.zip
 *.crt
 *.key
 *.ovpn
+.DS_Store
