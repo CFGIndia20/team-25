@@ -5,3 +5,4 @@ Team*.zip
 *.key
 *.ovpn
 .DS_Store
+.env

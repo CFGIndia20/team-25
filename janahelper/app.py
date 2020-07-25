@@ -1,31 +1,14 @@
+from janahelper.classification.categorize import pred
 from flask import Flask, render_template,request
-import csv, json
+
 app = Flask(__name__)
-
-# with open('file.csv', 'r') as file:
-#     my_reader = csv.reader(file, delimiter=',')
-#     for row in my_reader:
-#         print(row)
-
-
-def category_by_hand(text):
-    pass
-
-def location_by_hand(text):
-    pass
-
-
-def get_categories(text):
-    pass
-
-def get_location():
-    pass
 
 @app.route('/complaints', methods=['POST','GET'])
 def get_data():
     if request.method == 'GET':
         return render_template('input.html')
     elif request.method == 'POST':
+<<<<<<< HEAD
         text = request.form['complaint']
         lat= request.form['cdlat']
         lon= request.form['cdlon']
@@ -35,6 +18,20 @@ def get_data():
         return {'categories': text, 'latitude': lat , 'longitude':lon}
 
 
+=======
+        try:
+            text = request.form['complaint']
+            latitude = request.form['cdlat']
+            longitude = request.form['cdlon']
+            categories = pred(text)
+            return {'categories': categories, 'location': {"latittude": latitude, "longitude": longitude}}
+        except:
+            return redirect(url_for('get_data'))
+
+@app.errorhandler(404)  
+def not_found(e):
+    return redirect(url_for('get_data'))
+>>>>>>> 996878ccce5b6a35438e82f2a1a220c6f528f848
 
 if __name__ == '__main__':
     app.run(debug=True, )
