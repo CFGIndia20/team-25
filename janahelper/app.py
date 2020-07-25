@@ -1,7 +1,20 @@
-from janahelper.classification.categorize import pred
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db = SQLAlchemy(app)
+
+
+class Complaint(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.Integer,nullable=False)
+    loc_lat = db.Column(db.String(10), nullable=False)
+    loc_log = db.Column(db.String(10), nullable=False)
+    status = db.Column(db.String(30), nullable=False)
+
+    
+
 
 @app.route('/complaints', methods=['POST','GET'])
 def get_data():
@@ -12,10 +25,13 @@ def get_data():
             text = request.form['complaint']
             latitude = request.form['cdlat']
             longitude = request.form['cdlon']
-            categories = pred(text)
+            complaint1=Complaint(category=categories, loc_late=latitude, loc_long=longitude)
+            db.session.add(complaint1)
+            db.session.commit()
             return {'categories': categories, 'location': {"latittude": latitude, "longitude": longitude}}
         except:
             return redirect(url_for('get_data'))
+
 
 @app.errorhandler(404)  
 def not_found(e):
