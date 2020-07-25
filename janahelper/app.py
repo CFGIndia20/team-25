@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
+translator = Translator()
 
 
 app.config['MYSQL_HOST'] = 'localhost'

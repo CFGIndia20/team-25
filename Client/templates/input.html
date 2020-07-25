@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a href="#" class="navbar-brand"><img src="./static/janaagraha_logo.png"></a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav">
+            <a href="#" class="nav-item nav-link active">Track Status</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+        </div>
+    </div>
+</nav>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<body onload="setTimeout(showPage, 3000)">
+    <div id="loader"></div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div style="margin-top:80px;">
+            <div style="width: 40%; margin: auto; border: 2px solid #ffff00; padding: 10px;border-radius: 2%">
+
+                <h3 style="color: white;">Register Issue</h3>
+                <br>
+                <form method="POST" action="/" id="frm">
+                    {{ csrf_token }}
+                    <div class="form-group">
+                        <label for="tzid" style="color: white;">Complaint</label>
+                        <input type="textarea" name="complaint_text" id="complaint_text" class="form-control" size="50"
+                            style="border: 1.5px solid yellow;">
+                        <input type="hidden" name="cdlat" id="cdlat" value="">
+                        <input type="hidden" name="cdlon" id="cdlon" value="">
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success" id="sub" onclick="getLocation()"
+                            style="background-color:white;color: black;border: 1.5px solid yellow;">
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 60000
+    };
+
+    function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+    }
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    function submitClicked(position) {
+        document.getElementById("cdlat").value = position.coords.latitude;
+        document.getElementById("cdlon").value = position.coords.longitude;
+        document.getElementById("frm").submit();
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(submitClicked, error, options);
+        }
+    }
+</script>
+{% endblock %}
