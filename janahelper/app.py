@@ -1,5 +1,5 @@
-from janahelper.classification.categorize import pred
-from flask import Flask, render_template,request
+from classification.categorize import pred
+from flask import Flask, render_template,request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -22,4 +22,4 @@ def not_found(e):
     return redirect(url_for('get_data'))
 
 if __name__ == '__main__':
-    app.run(debug=True, )
+    app.run(debug=True)
