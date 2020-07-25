@@ -17,7 +17,6 @@ def get_data():
         categories=pred(text)
         return {'categories': categories, 'location': {"latitude": latitude, "longitude": longitude}}
 
-
 @app.errorhandler(404)  
 def not_found(e):
     return redirect(url_for('get_data'))
