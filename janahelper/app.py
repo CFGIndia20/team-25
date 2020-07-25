@@ -3,21 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from googletrans import Translator
 from classification.categorize import pred
 from flask import Flask, render_template,request, redirect, url_for
+from Model.models import Complaint
 translator = Translator()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
-
-
-class Complaint(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.Integer,nullable=False)
-    loc_lat = db.Column(db.String(10), nullable=False)
-    loc_log = db.Column(db.String(10), nullable=False)
-    status = db.Column(db.String(30), nullable=False)
-
-    
 
 
 @app.route('/complaints', methods=['POST','GET'])
