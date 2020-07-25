@@ -1,13 +1,25 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template,request
 import csv, json
 app = Flask(__name__)
 
+# with open('file.csv', 'r') as file:
+#     my_reader = csv.reader(file, delimiter=',')
+#     for row in my_reader:
+#         print(row)
+
+
+def category_by_hand(text):
+    pass
+
+def location_by_hand(text):
+    pass
+
 
 def get_categories(text):
-    return {"hello": text}
+    pass
 
-def get_location(text):
-    return {text: "world"}
+def get_location():
+    pass
 
 @app.route('/complaints', methods=['POST','GET'])
 def get_data():
@@ -15,9 +27,14 @@ def get_data():
         return render_template('input.html')
     elif request.method == 'POST':
         text = request.form['complaint']
+        lat= request.form['cdlat']
+        lon= request.form['cdlon']
+        print(lat)
         categories = get_categories(text)
-        location = get_location(text)
-        return {'categories': categories, 'location': location}
+        location = get_location()
+        return json.dump({'categories': categories, 'location': location})
+
+
 
 if __name__ == '__main__':
-    app.run(debug=True, port="8000")
+    app.run(debug=True, )
