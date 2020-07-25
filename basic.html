@@ -1,0 +1,92 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Janaagraha</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+    var x = document.getElementById("cord");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+        }
+
+      function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+</script>
+
+
+	<style>
+      label{
+           font-weight: bold;
+      }
+    </style>
+</head>
+<body>
+
+    <div style="margin-top:80px;">
+    	<div style="width: 40%; margin: auto; border: 2px solid black; padding: 10px;border-radius: 2%">
+    		<h3>Register Issue</h3>
+    		<hr>
+    		<form action="" method="POST">
+
+            <div class="form-group">
+        <label for="sname">Name</label>
+        <input type="text" class="form-control" id="sname" name="sname">
+        </div>
+    		
+    		<div class="form-group">
+		    <label for="tzid">Complaint </label>
+		    <input type="text" class="form-control" size="50" id="compTxt" name="compTxt">
+		  	</div>
+		  	
+		  	<div class="form-group">
+		    <input type="Submit" class="btn btn-success" id="sub" value="Submit"> 
+		  	</div>
+
+        <div class="form-group">
+        <input type="button" class="btn btn-success" id="getcurloc" value="Get Current Location " onclick="getLocation()"> 
+        </div>
+
+		  	</form>
+
+        <p id="cord"></p>
+    	</div>
+    </div>
+   
+</body>
+
+</html>
