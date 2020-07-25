@@ -1,4 +1,4 @@
-import requests
+import requests, json
 from flask import Flask, render_template,request, redirect, url_for, flash
 
 app = Flask(__name__)
@@ -10,17 +10,15 @@ def main():
     if request.method == 'GET':
         return render_template('input.html')
     elif request.method == 'POST':
-        print(request.form.keys())
         complaint = request.form['complaint_text']
         latitude = request.form['cdlat']
         longitude = request.form['cdlon']
-        json_object = {"complaint": complaint, "location": {"latitude": latitude, "longitude": longitude}}
+        json_object = {"complaint_text": complaint, "cdlat": latitude, "cdlon": longitude}
         try:
-            print(json_object)
             res = requests.post('http://localhost:5000/complaints', json=json_object)
             if res.status_code == 200:
-                return res
-                flash(res.json,"success")
+                response = json.loads(res.content)
+                flash(response ,"success")
             else:
                 raise Exception()
         except:
