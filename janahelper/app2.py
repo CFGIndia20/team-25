@@ -15,14 +15,14 @@ def push_data():
         return 
     elif request.method == 'POST':
         try:
-            complaints_json = request.get_jason()
+            complaints_json = request.get_json()
             text=complaints_json['complaint_text']
 
             text = translator.translate(str(text), dest='en').text
             latitude = complaints_json['location']['lat']
             longitude = complaints_json['location']['long']
             google_maps_location = "http://maps.google.com/maps?q=%s,%s",str(latitude), str(longitude)
-            #categories = pred(text)
+            categories = pred(text)
             name=complaints_json['user']['name']
             complaint1=Complaint(username=name,category=text,location=google_maps_location, text=text)
             db.session.add(complaint1)

@@ -1,20 +1,39 @@
 from googletrans import Translator
 from classification.categorize import pred
 from flask import Flask, render_template,request, redirect, url_for
-translator = Translator()
+from flask_mysqldb import MySQL
+
 
 app = Flask(__name__)
+
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = ''
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'complaintsdb'
+
+mysql = MySQL(app)
+
+translator = Translator()
+
+
+
 
 @app.route('/complaints', methods=['POST','GET'])
 def get_data():
     if request.method == 'GET':
         return render_template('input.html')
     elif request.method == 'POST':
-            text = request.form['complaint']
+            content= request.get_json()
+            username=content['name']
+            text = content['complaint_text']
             text = translator.translate(str(text), dest='en').text
-            latitude = request.form['cdlat']
-            longitude = request.form['cdlon']
+            latitude = content['cdlat']
+            longitude = content['cdlon']
             categories=pred(text)
+            # cur.execute("INSERT INTO complaints(username, category, location,status) VALUES (%s, %s,%s, %s,)", (firstName, lastName))
+            # mysql.connection.commit()
+            # cur.close()
             return {'categories': categories, 'location': {"latitude": latitude, "longitude": longitude}}
 
 @app.errorhandler(404)  
