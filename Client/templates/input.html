@@ -1,18 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a href="#" class="navbar-brand"><img src="{{ url_for('static', filename='css/janaagraha.png') }}"></a>
+    <a href="#" class="navbar-brand"><img src="{{ url_for('static', filename='img/janaagraha.png') }}"></a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!--<div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav">
-            <a href="#" class="nav-item nav-link active">Track Status</a>
-        </div>
-        <div class="navbar-nav ml-auto">
-        </div>
-    </div>-->
 </nav>
 {% with messages = get_flashed_messages() %}
 {% if messages %}

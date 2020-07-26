@@ -3,11 +3,16 @@ from flask import Flask, render_template,request, redirect, url_for, flash
 # from janahelper import app
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '_5#y2L"F4Q8z\n\xec]/'
+app.config['SECRET_KEY'] = 'Janahelper'
 
 
 @app.route("/", methods=['GET', 'POST'])
 def main():
+    
+    """ Main endpoint for our client takes get and post request, if a get request is there it render the
+    input form and if post request is made it takes in text and location data and request for recomendation
+    from the backend API and display the json result if successfull and an error message if request failed"""
+
     if request.method == 'GET':
         return render_template('input.html')
     elif request.method == 'POST':
@@ -29,6 +34,9 @@ def main():
 
 @app.errorhandler(404)  
 def not_found(e):
+
+    """A basic error handler if any other endpoint is tried to accessed"""
+
     flash("Wrong Path!", "error")
     return redirect(url_for('main'))
 
