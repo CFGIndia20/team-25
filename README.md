@@ -44,3 +44,16 @@ This will make the api to be in a functioning state.
 * Erroneous Output Example: </br>
 Redirecting to the same location or Error 404
 
+### Built With
+
+1. Frontend:
+   - Bootstrap
+2. API:
+   - Flask
+3. ML Model:
+   - TensorFlow
+   - Keras
+   - NLTK
+4. Social Media Integration
+   - Telegram Bot API
+
