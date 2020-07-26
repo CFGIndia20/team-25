@@ -1,6 +1,8 @@
 import requests, json
 from flask import Flask, render_template,request, redirect, url_for, flash
-from janahelper import app
+# from janahelper import app
+
+app = Flask(__name__)
 app.config['SECRET_KEY'] = '_5#y2L"F4Q8z\n\xec]/'
 
 
@@ -14,7 +16,7 @@ def main():
         longitude = request.form['cdlon']
         json_object = {"complaint_text": complaint, "cdlat": latitude, "cdlon": longitude}
         try:
-            res = requests.post('http://localhost:8080/complaints', json=json_object)
+            res = requests.post('http://localhost:5000/complaints', json=json_object)
             if res.status_code == 200:
                 response = json.loads(res.content)
                 flash(response ,"success")
