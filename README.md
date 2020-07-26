@@ -2,7 +2,9 @@
 A proposed solution for the challenge posed by Janaagraha NPO. The minimum viable prototype consists of a single step text submission to raise an issue, automatic categorization through a trained ML model and the one which can work for several Backend API for requests.
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. <br/>
+
+Python 3 has been used for this project.
 
 ### Clone
 Clone this repo to your local machine using [GitHub](https://github.com/CFGIndia20/team-25.git)
@@ -25,28 +27,12 @@ pip install -r requirements.txt
 
 To run the project in your local machine, follow the steps given below.
 
-* Clone the repository:
-```bash
-git clone https://github.com/CFGIndia20/team-25.git
-```
-* Change into team-25 folder
-```bash
-cd team-25
-```
-* Install required packages
-```bash
-pip install -r team-25/requirements.txt
-```
-* Inside API folder, run app.py
-```bash
-cd api
-python app.py
-```
-* Inside new terminal window, run app.py from Client folder inside team-25 folder
-```bash
-cd Client
-python app.py
-```
+* Go to team-25 folder
+* Then to move to api folder, run: <br/> cd api
+* Run the command: <br/> python app.py
+* Come out of the api folder, run: <br/> cd ../
+* Then to move to client folder, run: <br/> cd client
+* On a separate terminal, run the command: <br/> python app.py
 
 This will make the api to be in a functioning state.
 
@@ -82,4 +68,15 @@ Redirecting to the same location or Error 404
    - NLTK
 4. Social Media Integration
    - Telegram Bot API
+
+### Roadmap
+
+* Image processing <br/>
+For now our machine learning model does the text-processing to get the keywords from the text complaint to respond with the complaint category, which can be extended towards image processing. We will then be able to get a more accurate complaint category which would ease the process.
+
+* Feedback from the user <br/>
+Once the complaint status for a user turns out to be done or solved in the database which gets updated in every 5 minutes then the user will receive an email to fill out a survey as a part of the feedback collection system.
+
+* Voice input for raising an issue <br/>
+Since as per the current solution the user needs to raise an issue in the text format supported in several languages, to ease the process and for a change we can incorporate the input taking through voice.
 
