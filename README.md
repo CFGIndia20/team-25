@@ -22,11 +22,11 @@ Run the following command to install all the dependencies and get the environmen
 To run the project in your local machine, follow the steps given below.
 
 * Go to team-25 folder
-* Then to move to api folder, run: cd api
-* Run the command: python app.py
-* Come out of the api folder, run: cd ../
-* Then to move to client folder, tun: cd client
-* Run the command: python app.py
+* Then to move to api folder, run: <br/> cd api
+* Run the command: <br/> python app.py
+* Come out of the api folder, run: <br/> cd ../
+* Then to move to client folder, run: <br/> cd client
+* On a separate terminal, run the command: <br/> python app.py
 
 This will make the api to be in a functioning state.
 
