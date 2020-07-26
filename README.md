@@ -1,23 +1,21 @@
-# team-25
+# Team-25 Janahelper
+A proposed solution for the challenge posed by Janaagraha NPO. The minimum viable prototype consists of a single step text submission to raise an issue, automatic categorization through a trained ML model and the one which can work for several Backend API for requests.
 
-https://chat.whatsapp.com/FuYEwRS2FifC2XniJRBTrb join this group
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
-Hey everyone, please add your details in the readme so we can connect 
+### Clone
+Clone this repo to your local machine using https://github.com/CFGIndia20/team-25.git
 
-Aumkar Gadekar, Sardar Patel Institute of Technology
-Contact : 9821979970
+### Setup
+Run the following command to install all the dependencies and get the environment ready:
+pip install -r requirements.txt
 
-Avani R Shesh , R.V College of Engineering 
-Contact:9916084554
+## Features
+* A single step text submission to raise an issue at hand
+* The issue is automatically categorized through a trained ML model (detailed machine learning manual present inside team-25/API/classification/ML Manual.pdf )
+* A one stop Backend API for requests
+* Removes the barrier of language that is, it allows users to post issues in their preferred language (Googletrans api used)
+* Eases integration with social media platforms too (telegram bot is what used here)
 
-Rashi Srivastava, VIT
-Contact : 7415605714
-
-Nippun Lakhani , Thapar Institute of Engineering and Technology
-Contact : 9643783769
-
-Akshaz Singh, VIT
-Contact : 8989176299
-
-Nitisha Singhwal, NIT
-Contact : 9650637336
+## Usage
