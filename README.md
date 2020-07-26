@@ -5,10 +5,14 @@ A proposed solution for the challenge posed by Janaagraha NPO. The minimum viabl
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Clone
-Clone this repo to your local machine using https://github.com/CFGIndia20/team-25.git
+Clone this repo to your local machine using [GitHub](https://github.com/CFGIndia20/team-25.git)
 
 ### Setup
-Run the following command to install all the dependencies and get the environment ready: <br/> pip install -r requirements.txt
+Run the following command to install all the dependencies and get the environment ready: <br/> 
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Features
 * A single step text submission to raise an issue at hand
@@ -33,16 +37,22 @@ This will make the api to be in a functioning state.
 ### Test Case
 
 * Input Format Example:<br/>
+```json
 {
     "complaint_text":"Potholes near my locality",
     "cdlat":"35.46789",
     "cdlon":"45.678"
 }
+```
 * Successful Output Example: <br/>
+```json
 {"categories": "Mobility - Roads, Footpaths and Infrastructure", "location": {"latitude": "35.46789", "longitude":
 "45.678"}}
+```
 * Erroneous Output Example: </br>
+```json
 Redirecting to the same location or Error 404
+```
 
 ### Built With
 
