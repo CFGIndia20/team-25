@@ -25,12 +25,28 @@ pip install -r requirements.txt
 
 To run the project in your local machine, follow the steps given below.
 
-* Go to team-25 folder
-* Then to move to api folder, run: <br/> cd api
-* Run the command: <br/> python app.py
-* Come out of the api folder, run: <br/> cd ../
-* Then to move to client folder, run: <br/> cd client
-* On a separate terminal, run the command: <br/> python app.py
+* Clone the repository:
+```bash
+git clone https://github.com/CFGIndia20/team-25.git
+```
+* Change into team-25 folder
+```bash
+cd team-25
+```
+* Install required packages
+```bash
+pip install -r team-25/requirements.txt
+```
+* Inside API folder, run app.py
+```bash
+cd api
+python app.py
+```
+* Inside new terminal window, run app.py from Client folder inside team-25 folder
+```bash
+cd Client
+python app.py
+```
 
 This will make the api to be in a functioning state.
 
