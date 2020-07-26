@@ -5,10 +5,12 @@ The custom bot for registering complaints for Janagraha Issue Reporting System
 """
 
 import logging
+import requests
+import traceback
 from telegram.ext import Updater
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
-from telegram.ext import CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
-from config import TG_BOT_API
+from telegram.ext import CommandHandler, MessageHandler, Filters, ConversationHandler
+from config import TG_BOT_API, FLASK_URL
 
 # Logging Setup
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -88,24 +90,39 @@ def register_complaint(update, context):
 def get_status(update, context):
     """Callback to display status of the registered complaints"""
 
-    def get_status_api(username, userid, user_location):
-        return ""
-
     def pretty_print(response):
-        return ""
+        text = "Here are the complaints you have registered\n\n\n"
+        for complaint in response['complaints']:
+            text += "\n\n\nComplaint ID: %s\n\nCategory: %s\n\nLocation: %s\n\nText: %s\n\nStatus: %s"%(
+                complaint["id"],
+                complaint["category"],
+                complaint["location"],
+                complaint["text"],
+                complaint["status"]
+            )
+        return text
+
+    def get_status_api(username):
+        responses = requests.get(FLASK_URL+"/api/complaints", params={"user_name": username})
+        response_json = responses.json()
+        return response_json
 
     text = update.message.text
     user = update.message.from_user
 
     try:
-        response = get_status_api(user.username, user.id, context.user_data["user_location"])
+        response = get_status_api(user.first_name)
+        print(response)
         text = pretty_print(response)
+        print(text)
         text += "\nThank you so much for the concern."
-    except Exception:
+    except Exception as e:
+        traceback.print_stack()
         text = "Oh I'm so sorry. I'm unable to get information regarding the" \
                " complaints at the moment. Please try again later."
     finally:
         update.message.reply_text(text)
+        update.message.reply_text("Thank you")
         return ConversationHandler.END
 
 
@@ -115,19 +132,36 @@ def complaint_registered(update, context):
         choice = context.user_data["choice"]
 
     def send_data_api(username, userid, text, user_location):
-        pass
+        request_json = {
+            "user" : {
+                "username": username,
+                "id": userid
+            },
+            "location" : {
+                "lat" : user_location.latitude,
+                "long" : user_location.longitude
+            },
+            "complaint_text": text
+        }
+        response = requests.post(FLASK_URL+"/api/complaint", json=request_json)
+        return response.json()
+
+
 
     text = update.message.text
     user = update.message.from_user
 
     if choice == OPTION_MAP[COMPLAINT]:
         try:
-            send_data_api(user.username, user.id, text, context.user_data["user_location"])
-            text = "Thank you so much for registering the complaint with us. We will get back to you soon."
-        except Exception:
+            response = send_data_api(user.first_name, user.id, text, context.user_data["user_location"])
+            text = "Your complaint has been registered with us under %s. " \
+                   "Thank you so much for your efforts." % (response['complaint']['category'])
+        except Exception as e:
             text = "Oh I'm so sorry. I'm unable to register any complaints at the moment. Please try again later."
+            print(e.with_traceback())
         finally:
             update.message.reply_text(text)
+            update.message.reply_text("Thank you")
             return ConversationHandler.END
     else:
         update.message.reply_text("Thank you")
@@ -140,6 +174,15 @@ def cancel(update, context):
                               reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
+
+def generic_response(update, context):
+    update.message.reply_text("Hello there! Please type start to continue.")
+
+def failure_response_selection(update, context):
+    update.message.reply_text("I'm sorry I don't understand. Please select the below options.")
+
+def failure_response_location(update, context):
+    update.message.reply_text("I'm sorry I don't understand. Please enter the location")
 
 
 def main():
@@ -156,7 +199,9 @@ def main():
     # conversation, we need to make sure the top level conversation can also handle them
     selection_handlers = [
         MessageHandler(Filters.regex('^Register Complaint$'), register_complaint),
-        MessageHandler(Filters.regex('^View Status of Complaint$'), get_status)
+        MessageHandler(Filters.regex('^View Status of Complaint$'), get_status),
+        MessageHandler(Filters.regex('(?!View Status of Complaint|Register Complaint).*$') &
+                       ~Filters.regex('^[cC]ancel$'), failure_response_selection)
     ]
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start),
@@ -165,7 +210,8 @@ def main():
         states={
             SELECT_OPTIONS: selection_handlers,
             LOCATION: [MessageHandler(Filters.location, location),
-                       CommandHandler('skip', skip_location)],
+                       CommandHandler('skip', skip_location),
+                       MessageHandler(Filters.text & ~Filters.location & ~Filters.regex('^[cC]ancel$'), failure_response_location)],
             COMPLAINT_REGISTERED: [MessageHandler(Filters.text, complaint_registered)],
             RETRY: [CommandHandler('start', start)],
         },
@@ -173,8 +219,9 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel),
                    MessageHandler(Filters.regex('^[cC]ancel$'), cancel)],
     )
-
+    general_handler = MessageHandler(Filters.text, generic_response)
     dp.add_handler(conv_handler)
+    dp.add_handler(general_handler)
 
     # Start the Bot
     updater.start_polling()
