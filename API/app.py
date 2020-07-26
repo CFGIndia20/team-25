@@ -1,9 +1,9 @@
 import json
 from googletrans import Translator
-from API.classification.categorize import pred
+from classification.categorize import pred
 from flask import Flask, render_template,request, redirect, url_for
-from janahelper import app
-
+# from janahelper import app
+app = Flask(__name__)
 translator = Translator()
 
 @app.route('/complaints', methods=['POST'])
@@ -19,4 +19,4 @@ def get_data():
         return json.dumps({'categories': categories, "location": {"latitude": latitude, "longitude": longitude}})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=5000)
