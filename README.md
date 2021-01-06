@@ -80,3 +80,5 @@ Once the complaint status for a user turns out to be done or solved in the datab
 * Voice input for raising an issue <br/>
 Since as per the current solution the user needs to raise an issue in the text format supported in several languages, to ease the process and for a change we can incorporate the input taking through voice.
 
+
+##### The code ("Code") in this repository was created solely by the student teams during a coding competition hosted by JPMorgan Chase Bank, N.A. ("JPMC").						JPMC did not create or contribute to the development of the Code.  This Code is provided AS IS and JPMC makes no warranty of any kind, express or implied, as to the Code,						including but not limited to, merchantability, satisfactory quality, non-infringement, title or fitness for a particular purpose or use.
